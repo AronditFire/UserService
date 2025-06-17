@@ -1,0 +1,9 @@
+env: "local"
+access_ttl: 1h
+refresh_ttl: 336h
+postgres_dsn: "postgres://username:password@localhost:5432/database_name" # TODO: ОТРЕДАЧИТЬ
+jwt_secret: "vgfsnvksfnvks"
+log_level: "info"
+grpc:
+  port: 30677
+  timeout: 20m
