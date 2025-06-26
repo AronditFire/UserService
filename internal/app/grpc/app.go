@@ -15,9 +15,10 @@ type App struct {
 	jwtSecret  string
 }
 
-func New(log *slog.Logger, authSrv authgrpc.Auth, port int, jwtSecret string) *App {
+func New(log *slog.Logger, auth authgrpc.Auth, port int, jwtSecret string) *App {
 	gRPCServer := grpc.NewServer()
-	authgrpc.RegisterUserService(gRPCServer, authSrv)
+
+	authgrpc.RegisterUserService(gRPCServer, auth)
 
 	return &App{
 		log:        log,

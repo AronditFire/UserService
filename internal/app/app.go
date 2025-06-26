@@ -30,6 +30,7 @@ func New(
 	}
 
 	authService := auth.New(log, storage, storage, storage, storage, storage, accessTTL, refreshTTL, tokenSecret, DEFAULT_ROLE)
+	// profileService := uprof.New(...)
 
 	grpcApp := grpcapp.New(log, authService, grpcPort, tokenSecret)
 
