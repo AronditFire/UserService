@@ -3,6 +3,7 @@ package grpcapp
 import (
 	"fmt"
 	"github.com/AronditFire/User-Service/internal/grpc/auth"
+	uprofile "github.com/AronditFire/User-Service/internal/services/userProfile"
 	"google.golang.org/grpc"
 	"log/slog"
 	"net"
@@ -15,10 +16,10 @@ type App struct {
 	jwtSecret  string
 }
 
-func New(log *slog.Logger, auth authgrpc.Auth, port int, jwtSecret string) *App {
+func New(log *slog.Logger, auth authgrpc.Auth, prof uprofile.UserProfile, port int, jwtSecret string) *App {
 	gRPCServer := grpc.NewServer()
 
-	authgrpc.RegisterUserService(gRPCServer, auth)
+	authgrpc.RegisterUserService(gRPCServer, auth) // prof
 
 	return &App{
 		log:        log,

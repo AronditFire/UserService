@@ -3,6 +3,7 @@ package app
 import (
 	grpcapp "github.com/AronditFire/User-Service/internal/app/grpc"
 	"github.com/AronditFire/User-Service/internal/services/auth"
+	uprofile "github.com/AronditFire/User-Service/internal/services/userProfile"
 	repo "github.com/AronditFire/User-Service/internal/storage/postgres/auth"
 	"log/slog"
 	"net/http"
@@ -30,9 +31,9 @@ func New(
 	}
 
 	authService := auth.New(log, storage, storage, storage, storage, storage, accessTTL, refreshTTL, tokenSecret, DEFAULT_ROLE)
-	// profileService := uprof.New(...)
+	profileService := uprofile.New(log, storage, storage)
 
-	grpcApp := grpcapp.New(log, authService, grpcPort, tokenSecret)
+	grpcApp := grpcapp.New(log, authService, profileService, grpcPort, tokenSecret)
 
 	return &App{GRPCServer: grpcApp}
 }
