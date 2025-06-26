@@ -5,13 +5,15 @@ import (
 	"github.com/AronditFire/User-Service/internal/services/auth"
 	repo "github.com/AronditFire/User-Service/internal/storage/postgres/auth"
 	"log/slog"
+	"net/http"
 	"time"
 )
 
 const DEFAULT_ROLE = "buyer"
 
 type App struct {
-	GRPCServer *grpcapp.App
+	GRPCServer     *grpcapp.App
+	GINHTTPGateway *http.Server
 }
 
 func New(
@@ -29,7 +31,7 @@ func New(
 
 	authService := auth.New(log, storage, storage, storage, storage, storage, accessTTL, refreshTTL, tokenSecret, DEFAULT_ROLE)
 
-	grpcApp := grpcapp.New(log, authService, grpcPort)
+	grpcApp := grpcapp.New(log, authService, grpcPort, tokenSecret)
 
 	return &App{GRPCServer: grpcApp}
 }

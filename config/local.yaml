@@ -1,7 +1,8 @@
 env: "local"
 access_ttl: 1h
 refresh_ttl: 336h
-postgres_dsn: "postgres://username:password@localhost:5432/database_name" # TODO: ОТРЕДАЧИТЬ
+postgres_dsn: "postgres://postgres:qwerty@0.0.0.0:5432/postgres?sslmode=disable"
+migration_url: "file://migrations"
 jwt_secret: "vgfsnvksfnvks"
 log_level: "info"
 grpc:

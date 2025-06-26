@@ -6,8 +6,11 @@ import (
 	"fmt"
 	"github.com/AronditFire/User-Service/internal/domain/models"
 	"github.com/AronditFire/User-Service/internal/storage"
+	_ "github.com/golang-migrate/migrate/v4/database/postgres"
+	_ "github.com/golang-migrate/migrate/v4/source/file"
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
+	_ "github.com/lib/pq"
 	"time"
 )
 
@@ -113,7 +116,10 @@ func (s *Storage) SetRole(ctx context.Context, userID int64, role string) error 
         SELECT $1, r.id FROM roles r WHERE r.name = $2
         ON CONFLICT DO NOTHING
     `, userID, role)
-	return fmt.Errorf("%s: %w", op, err)
+	if err != nil {
+		return fmt.Errorf("%s: %w", op, err)
+	}
+	return nil
 }
 
 func (s *Storage) Role(ctx context.Context, userID int64) (string, error) {
@@ -169,8 +175,10 @@ func (s *Storage) SaveToken(ctx context.Context, refreshToken string, userID int
         INSERT INTO refresh_tokens (token, user_id, expires_at)
         VALUES ($1, $2, $3)
     `, refreshToken, userID, expiresAt)
-
-	return fmt.Errorf("%s: %w", op, err)
+	if err != nil {
+		return fmt.Errorf("%s: %w", op, err)
+	}
+	return nil
 }
 
 func (s *Storage) GetToken(ctx context.Context, refreshToken string) (models.RefreshTokenClaims, error) {

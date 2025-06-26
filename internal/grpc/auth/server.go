@@ -21,11 +21,11 @@ type ServerAPI struct {
 	auth Auth
 }
 
-func Register(s *grpc.Server, auth Auth) {
+func RegisterUserService(s *grpc.Server, auth Auth) {
 	uservicev1.RegisterUserServiceServer(s, &ServerAPI{auth: auth})
 }
 
-func (s *ServerAPI) RegisterUser(ctx context.Context, req *uservicev1.RegisterRequest) (*uservicev1.RegisterResponse, error) {
+func (s *ServerAPI) Register(ctx context.Context, req *uservicev1.RegisterRequest) (*uservicev1.RegisterResponse, error) {
 	if err := ValidateRegister(req); err != nil {
 		return nil, status.Error(codes.InvalidArgument, err.Error()) // TODO: validate errors
 	}
@@ -57,8 +57,8 @@ func (s *ServerAPI) Login(ctx context.Context, req *uservicev1.LoginRequest) (*u
 	}, nil
 }
 
-// Refresh generate new token pair if refresh token not expired
-func (s *ServerAPI) Refresh(ctx context.Context, req *uservicev1.RefreshRequest) (*uservicev1.RefreshResponse, error) {
+// RefreshToken generate new token pair if refresh token not expired
+func (s *ServerAPI) RefreshToken(ctx context.Context, req *uservicev1.RefreshRequest) (*uservicev1.RefreshResponse, error) {
 	if req.GetRefreshToken() == "" {
 		return nil, status.Error(codes.InvalidArgument, "refresh token is empty")
 	}
