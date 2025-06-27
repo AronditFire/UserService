@@ -2,9 +2,8 @@ package authgrpc
 
 import (
 	"context"
-	uservicev1 "github.com/AronditFire/User-Service-Protobuf/gen"
+	uservicev1 "github.com/AronditFire/UService-ProtobufNew/gen"
 	val "github.com/AronditFire/User-Service/internal/validator"
-	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/emptypb"
@@ -15,14 +14,6 @@ type Auth interface {
 	RegisterUser(ctx context.Context, username string, email string, FIO string, phoneNumber string, password string) (int64, error)
 	Refresh(ctx context.Context, refreshToken string) (string, string, error) // new access, new refresh, error
 	Logout(ctx context.Context, refreshToken string) error
-}
-type ServerAPI struct {
-	uservicev1.UnimplementedUserServiceServer
-	auth Auth
-}
-
-func RegisterUserService(s *grpc.Server, auth Auth) {
-	uservicev1.RegisterUserServiceServer(s, &ServerAPI{auth: auth})
 }
 
 func (s *ServerAPI) Register(ctx context.Context, req *uservicev1.RegisterRequest) (*uservicev1.RegisterResponse, error) {

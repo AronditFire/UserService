@@ -15,7 +15,7 @@ import (
 
 var (
 	ErrInvalidCredentials = errors.New("invalid credentials")
-	ErrInvalidToken       = errors.New("invalid or expired token")
+	// ErrInvalidToken       = errors.New("invalid or expired token")
 )
 
 type Auth struct {
@@ -120,7 +120,7 @@ func (a *Auth) Login(ctx context.Context, username, password string) (string, st
 			return "", "", fmt.Errorf("%s: %w", op, ErrInvalidCredentials)
 		}
 		a.log.Error("failed to get user", slog.String("error", err.Error()))
-
+		return "", "", fmt.Errorf("%s: %w", op, err)
 	}
 
 	if err := bcrypt.CompareHashAndPassword(user.PassHash, []byte(password)); err != nil {
