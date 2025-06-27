@@ -6,5 +6,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="UService-ProtobufNew" />
+    <orderEntry type="module" module-name="UService-Gateway" />
   </component>
 </module>

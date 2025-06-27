@@ -3,7 +3,7 @@ package authgrpc
 import (
 	"context"
 	"errors"
-	uservicev1 "github.com/AronditFire/UService-ProtobufNew/gen"
+	uservicev1 "github.com/AronditFire/UService-ProtobufNew/gen/user-service"
 	"github.com/AronditFire/User-Service/internal/domain/models"
 	uprofile "github.com/AronditFire/User-Service/internal/services/userProfile"
 	"google.golang.org/grpc/codes"

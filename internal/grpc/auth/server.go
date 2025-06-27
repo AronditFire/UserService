@@ -2,7 +2,7 @@ package authgrpc
 
 import (
 	"context"
-	uservicev1 "github.com/AronditFire/UService-ProtobufNew/gen"
+	uservicev1 "github.com/AronditFire/UService-ProtobufNew/gen/user-service"
 	"github.com/AronditFire/User-Service/internal/lib/jwt"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"

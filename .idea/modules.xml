@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../UService-Gateway/.idea/UService-Gateway.iml" filepath="$PROJECT_DIR$/../UService-Gateway/.idea/UService-Gateway.iml" />
       <module fileurl="file://$PROJECT_DIR$/../UService-ProtobufNew/.idea/UService-ProtobufNew.iml" filepath="$PROJECT_DIR$/../UService-ProtobufNew/.idea/UService-ProtobufNew.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/User-Service.iml" filepath="$PROJECT_DIR$/.idea/User-Service.iml" />
     </modules>
