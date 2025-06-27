@@ -27,6 +27,9 @@ func (s *ServerAPI) GetProfile(ctx context.Context, req *uservicev1.GetProfileRe
 	if req.GetUserId() <= 0 {
 		return nil, status.Error(codes.InvalidArgument, "user ID must be greater than 0")
 	}
+	if (req.GetUserId() != ctx.Value("user_id")) && (ctx.Value("role") != "admin") {
+		return nil, status.Error(codes.PermissionDenied, "user ID is not allowed")
+	}
 
 	user, err := s.uProf.GetProfile(ctx, req.GetUserId())
 	if err != nil {

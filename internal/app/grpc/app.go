@@ -16,7 +16,12 @@ type App struct {
 }
 
 func New(log *slog.Logger, auth authgrpc.Auth, prof authgrpc.UserProfile, port int, jwtSecret string) *App {
-	gRPCServer := grpc.NewServer()
+
+	gRPCServer := grpc.NewServer(
+		grpc.ChainUnaryInterceptor(
+			authgrpc.UnaryAuthInterceptor(jwtSecret),
+		),
+	)
 
 	authgrpc.RegisterUserService(gRPCServer, auth, prof)
 
